@@ -1,112 +1,110 @@
-#IfWinActive,ahk_class D3 Main Window Class 
+#SingleInstance force
+#MaxThreads 1
+#IfWinActive, ahk_class D3 Main Window Class
 
 SetKeyDelay,20
 SetMouseDelay,20
+enable:=False
 
-v_Enable=0
-
-$XButton2::
-{ 
-	v_Enable:=!v_Enable 
-	If (v_Enable = 0)
-	{
-		ALLOff()
-
-	}Else 
-	{
-		Send {3}
-		v_Tab=0
-		sushuaOn()
-	}
-} Return 
-
-~Enter::  
-~T::
-~M::      
+MouseLButton:
 {
-	ALLOff()	
-	v_Enable=0
-}Return
-
-~Tab::
-{
-	If (v_Enable) or (v_Enable2)
-	{
-		v_Tab:=!v_Tab
-		If (v_Tab)
-			ALLOff()
-		else 
-			sushuaOn()
-	}   
-}Return
-
+	Click
+	Return
+}
 Label1:
 {
 	Send {1}
 	Return
 }
-
 Label2:
 {
 	Send {2}
 	Return
 }
-
 Label3:
 {
 	Send {3}
 	Return
 }
-
 Label4:
 {
 	Send {4}
 	Return
 }
-
-LabelX:
+Open()
 {
-	Send {x}
+	SetTimer, Label1, 50
+	SetTimer, Label2, 50
+	SetTimer, Label3, 50
+	SetTimer, Label4, 50
+	SetTimer, MouseLButton, 50
+	enable := !enable
 	Return
 }
-
-MouseLButton:
-{
-	Click
-	IfWinNotActive, ahk_class D3 Main Window Class
-	{
-		AllOff()
-		v_Enable=0
-	}
-}Return
-
-MouseRButton:
-{
-	Click Right
-	IfWinNotActive, ahk_class D3 Main Window Class
-	{
-		AllOff()
-		v_Enable=0
-	}
-}Return
-
-ALLOff()
+Close()
 {
 	SetTimer, Label1, off
 	SetTimer, Label2, off 
 	SetTimer, Label3, off 
-	SetTimer, Label4, off 
+	SetTimer, Label4, off
 	SetTimer, MouseLButton, off
-	SetTimer, MouseRButton, off
-	Send {x up}
+	Return
 }
 
-sushuaOn()
+;开启
+~XButton2::
 {
-	SetTimer, Label1, 620
-	SetTimer, Label2, 620
-	SetTimer, Label3, 2500
-	SetTimer, Label4, 620
-	SetTimer, MouseLButton, 50
-	SetTimer, MouseRButton, 50
+	Open()
+	Return
 }
+
+;按住鼠标右键不放执行循环
+$RButton::
+{
+	Loop
+	{
+		If (enable)
+		{	
+			If (GetKeyState("RButton", "P")) ;判断鼠标右键是否按下
+			{
+				Send 1
+				Send 2
+				Send 3
+				Send 4
+				Click Down Right
+			}
+			Else
+			{
+				Click Up Right
+				Return
+			}
+		}
+		Else
+		{
+			If (GetKeyState("RButton", "P")) ;判断鼠标右键是否按下
+			{
+				Click Down Right
+			}
+			Else
+			{
+				Click Up Right
+				Return
+			}
+		}
+	}
+}Return
+
+~Enter:: 
+~T::
+~R::
+~U::
+~I::
+~C::
+~M::
+~Tab::
+~X::
+~Alt::
+~XButton1::      
+{
+	Close()	
+}Return
