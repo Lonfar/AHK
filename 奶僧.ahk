@@ -1,10 +1,19 @@
 #SingleInstance force
 #MaxThreads 1
 #IfWinActive, ahk_class D3 Main Window Class
+;1 回天息， 2 金轮阵， 3 治疗真言， 4 灵光悟 ， 鼠标左键 断筋决， 鼠标右键 冲心拳
 
 SetKeyDelay,20
 SetMouseDelay,20
-enable:=False
+
+~XButton2:: ;开启
+enable := 1
+SetTimer, Label1, 50
+SetTimer, Label2, 50
+SetTimer, Label3, 50
+SetTimer, Label4, 50
+SetTimer, MouseLButton, 50
+Return
 
 MouseLButton:
 {
@@ -29,32 +38,6 @@ Label3:
 Label4:
 {
 	Send {4}
-	Return
-}
-Open()
-{
-	SetTimer, Label1, 50
-	SetTimer, Label2, 50
-	SetTimer, Label3, 50
-	SetTimer, Label4, 50
-	SetTimer, MouseLButton, 50
-	enable := !enable
-	Return
-}
-Close()
-{
-	SetTimer, Label1, off
-	SetTimer, Label2, off 
-	SetTimer, Label3, off 
-	SetTimer, Label4, off
-	SetTimer, MouseLButton, off
-	Return
-}
-
-;开启
-~XButton2::
-{
-	Open()
 	Return
 }
 
@@ -106,5 +89,10 @@ $RButton::
 ~Alt::
 ~XButton1::      
 {
-	Close()	
+	SetTimer, Label1, off
+	SetTimer, Label2, off 
+	SetTimer, Label3, off 
+	SetTimer, Label4, off
+	SetTimer, MouseLButton, off
+	enable := 0
 }Return
