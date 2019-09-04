@@ -4,7 +4,7 @@
 ;1 回天息， 2 金轮阵， 3 治疗真言， 4 灵光悟 ， 鼠标左键 断筋决， 鼠标右键 冲心拳
 
 SetKeyDelay,50
-SetMouseDelay,20
+SetMouseDelay,50
 
 ~XButton2:: ;开启
 enable := 1
