@@ -5,30 +5,32 @@
 
 SetMouseDelay,50
 
-~K:: ;;开启
-enable := 1
-send 4
-SetTimer, Label2, 2500
-SetTimer, Label3, 60
-SetTimer, Label4, 4000
-Return
+~XButton2:: ;;开启
+{
+    enable := 1
+    send 4
+    SetTimer, Label2, 1500
+    SetTimer, Label3, 60
+    SetTimer, Label4, 1000
+    Return
+}
 
 Label2:
 {
-Send 2
-Return
+    Send 2
+    Return
 }
 
 Label3:
 {
-Send 3
-Return
+    Send 3
+    Return
 }
 
 Label4:
 {
-Send 4
-Return
+    Send 4
+    Return
 }
 
 LButton::
@@ -50,76 +52,31 @@ LButton::
     MouseClick, left,,, 1, 0, U
     If (enable)
     {
-        SetTimer, Label2, 2500
+        SetTimer, Label2, 1500
         SetTimer, Label3, 60
-        SetTimer, Label4, 4000
+        SetTimer, Label4, 1000
     }
 }
 Return
 
-; RButton::
-; {
-;     MouseClick, Right,,, 1, 0, D
-;     Loop
-;     {
-;         Sleep, 100
-;         GetKeyState, state, RButton, P
-;         if state = D
-;             {
-;                 SetTimer, Label2, off 
-;                 SetTimer, Label3, off   
-;                 SetTimer, Label4, off
-;             }
-;         if state = U
-;             break
-;     }
-;     MouseClick, Right,,, 1, 0, U
-;     If (enable)
-;     {
-;         SetTimer, Label2, 2500
-;         SetTimer, Label3, 60
-;         SetTimer, Label4, 4000
-;     }
-; }
-; Return
 
-~Enter:: ;;关闭
+;关闭
+~Enter:: 
 ~T::
 ~R::
-~S::
+~U::
 ~I::
 ~C::
 ~M::
 ~Tab::
 ~X::
 ~Alt::
+~XButton1::
 { 
     SetTimer, Label2, off 
     SetTimer, Label3, off   
     SetTimer, Label4, off
     enable := 0
+    Return
 } 
 Return
-
-; ~Ctrl::
-
-; {
-;     if  LCtrl Down or LAlt Down
-;     {
-;         if (!enable)
-;         {
-;             SetTimer, Label2, off 
-;             SetTimer, Label3, off   
-;             SetTimer, Label4, off
-;         }
-;     }
-;     Else
-;     {
-;         If (enable)
-;         {
-;             SetTimer, Label2, 2500
-;             SetTimer, Label3, 60
-;             SetTimer, Label4, 4000
-;         }
-;     }
-; }Return

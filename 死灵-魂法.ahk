@@ -8,8 +8,8 @@ SetMouseDelay,50
 ;开启
 ~XButton2::
 {
-    SetTimer, Label2, 1000
-    SetTimer, Label3, 1000
+    ; SetTimer, Label2, 1000
+    SetTimer, Label3, 20
     SetTimer, Label4, 20
     SetTimer, MouseLButton, 50
     Return
@@ -39,16 +39,6 @@ Label4:
     Return
 }
 
-;关闭
-Close() 
-{
-    SetTimer, Label2, off
-    SetTimer, Label3, off
-    SetTimer, Label4, off
-    SetTimer, MouseLButton, off
-    Return
-}
-
 ;关闭条件
 ~Enter:: 
 ~T::
@@ -62,7 +52,9 @@ Close()
 ~Alt::
 ~XButton1::
 { 
-    Close()
+    SetTimer, Label3, off
+    SetTimer, Label4, off
+    SetTimer, MouseLButton, off
     Return
 } 
 Return
